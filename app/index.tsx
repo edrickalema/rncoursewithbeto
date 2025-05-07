@@ -1,4 +1,4 @@
-import StyledComponent from "@/components/styled-component";
+import Login from "@/components/login";
 import { useState } from "react";
 
 import { StyleSheet, View } from "react-native";
@@ -54,7 +54,9 @@ export default function Index() {
     // </ScrollView>
 
     <View style={styles.container}>
-      <StyledComponent />
+      {/* <StyledComponent /> */}
+
+      <Login />
     </View>
   );
 }
