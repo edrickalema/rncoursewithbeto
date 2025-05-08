@@ -1,10 +1,38 @@
-import Button from "@/components/button";
-import { Link } from "expo-router";
-import { useState } from "react";
+import RnText from "@/components/text";
+import { Platform, ScrollView, StyleSheet } from "react-native";
 
-import { ScrollView, StyleSheet, Text, TextInput } from "react-native";
+import * as Device from "expo-device";
+import * as Notifications from "expo-notifications";
+
 export default function Index() {
-  const [name, setName] = useState("");
+  async function requestForPushNotificationPermssion() {
+    let token;
+
+    if (Device.isDevice) {
+      const { status: existingStatus } =
+        await Notifications.getPermissionsAsync();
+
+      let finalStatus = existingStatus;
+
+      if (finalStatus !== "granted") {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+    } else {
+      console.log(Device.isDevice);
+    }
+
+    if (Platform.OS) {
+      Notifications.setNotificationChannelAsync("default", {
+        name: "default",
+        importance: Notifications.AndroidImportance.HIGH,
+        sound: "default",
+        showBadge: true,
+        lockscreenVisibility:
+          Notifications.AndroidNotificationVisibility.PUBLIC,
+      });
+    }
+  }
   return (
     <ScrollView
       contentContainerStyle={{
@@ -12,9 +40,23 @@ export default function Index() {
         justifyContent: "center",
         alignItems: "center",
         gap: 10,
+        backgroundColor: "lightyellow",
       }}
     >
-      <TextInput
+      <RnText
+        style={{
+          fontSize: 20,
+          fontWeight: "bold",
+          textAlign: "center",
+          padding: 10,
+          backgroundColor: "black",
+          borderRadius: 5,
+          color: "white",
+        }}
+      >
+        Hello, Welcome
+      </RnText>
+      {/* <TextInput
         style={{
           width: "80%",
           height: 50,
@@ -60,7 +102,7 @@ export default function Index() {
         >
           Go to Settings
         </Button>
-      </Link>
+      </Link> */}
     </ScrollView>
   );
 }
@@ -79,7 +121,6 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
 });
-
 
 // Stack ->	A stack navigator is a type of navigation container that manages a stack of screens. Each screen is pushed onto the stack, and when a screen is popped, it is removed from the stack.
 // Tabs ->	A tab navigator is a type of navigation container that manages a set of tabs. Each tab is a screen, and when a tab is selected, it is displayed.

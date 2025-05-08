@@ -51,3 +51,13 @@ export default function Settings() {
 // Rotation gesture	Handles rotation with two fingers
 // Pinch gesture	Handles pinch-to-zoom interactions
 // Fling gesture	Detects quick swipe motions
+
+
+// testing-library/react-native
+// appId	The ID of the app to test. This is the same as the appId in the app.json file.
+// launchApp	Launch the app.
+// tapOn	Tap on an element.
+// doubleTap	Double tap on an element.
+// swipe	Swipe on an element.
+// inputText	Input text into an element.
+// back	Navigate back.
